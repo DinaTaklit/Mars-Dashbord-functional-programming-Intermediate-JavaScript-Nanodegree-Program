@@ -23,26 +23,7 @@ const render = async (root, state) => {
 
 // create content
 const App = (state) => {
-    return `
-        <header></header>
-        <main>
-            ${Greeting(state.get('user').get('name'))}
-            <section>
-                <h3>Put things on the page!</h3>
-                <p>Here is an example section.</p>
-                <p>
-                    One of the most popular websites at NASA is the Astronomy Picture of the Day. In fact, this website is one of
-                    the most popular websites across all federal agencies. It has the popular appeal of a Justin Bieber video.
-                    This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other
-                    applications. In addition, if the concept_tags parameter is set to True, then keywords derived from the image
-                    explanation are returned. These keywords could be used as auto-generated hashtags for twitter or instagram feeds;
-                    but generally help with discoverability of relevant imagery.
-                </p>
-                ${ImageOfTheDay(state, state.get('apod'))}
-            </section>
-        </main>
-        <footer></footer>
-    `
+    return welcome(state)
 }
 
 // listening for load event because page should load before any JS is called
@@ -51,30 +32,40 @@ window.addEventListener('load', () => {
 })
 
 // ------------------------------------------------------  COMPONENTS
-
-// Pure function that renders conditional information -- THIS IS JUST AN EXAMPLE, you can delete it.
-const Greeting = (name) => {
-    if (name) {
-        return `
-            <h1>Welcome, ${name}!</h1>
-        `
-    }
-
+const welcome = (state) => {
     return `
-        <h1>Hello!</h1>
+        <header></header>
+        <main>
+            ${Greeting(state.get('user').get('name'))}
+            <section>
+                <p>
+                    One of the most popular websites at NASA is the Astronomy Picture of the Day. In fact, this website is one of
+                    the most popular websites across all federal agencies. It has the popular appeal of a Justin Bieber video.
+                    This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other
+                    applications. In addition, if the concept_tags parameter is set to True, then keywords derived from the image
+                    explanation are returned. These keywords could be used as auto-generated hashtags for twitter or instagram feeds;
+                    but generally help with discoverability of relevant imagery.
+                </p>
+                ${ImageOfTheDay(state)}
+            </section>
+        </main>
+        <footer></footer>
     `
 }
 
-// Example of a pure function that renders infomation requested from the backend
-const ImageOfTheDay = (state,apod) => {
+// Pure function for greeting 
+const Greeting = (name) => {
+    return name ? `<h1>Welcome, ${name}!</h1>`: `<h1>Hello!</h1>`
+}
+
+// Example of a pure function that renders infomation requested from the backend to get the image of the date
+const ImageOfTheDay = (state) => {
+    let apod = state.get('apod')
     // If image does not already exist, or it is not from today -- request it again
     const today = new Date()
-    const photodate = new Date(apod.date)
-    console.log(photodate.getDate(), today.getDate());
-
-    console.log(photodate.getDate() === today.getDate());
     if (!apod || apod.date === today.getDate() ) {
         getImageOfTheDay(state)
+        apod = state.get('apod')
     }
 
     // check if the photo of the day is actually type video!
