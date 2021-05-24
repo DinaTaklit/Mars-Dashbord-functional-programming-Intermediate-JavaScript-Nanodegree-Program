@@ -1,8 +1,11 @@
-let store = {
-    user: { name: "Student" },
+// Declare Store object using Immutable.Map
+let store = Immutable.Map({
+    user: Immutable.Map({ name: "Dina" }),
     apod: '',
-    rovers: ['Curiosity', 'Opportunity', 'Spirit'],
-}
+    currentRover: '', // represent the current selcted rover
+    rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']), // List of the rovers Name
+    roversData: Immutable.Map() // Rovers Data: Information + most recent taken images
+})
 
 // add our markup to the page
 const root = document.getElementById('root')
