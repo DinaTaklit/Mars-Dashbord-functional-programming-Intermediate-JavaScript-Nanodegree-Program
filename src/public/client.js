@@ -23,12 +23,10 @@ const render = async (root, state) => {
 
 // create content
 const App = (state) => {
-    let { rovers, apod } = state
-
     return `
         <header></header>
         <main>
-            ${Greeting(store.user.name)}
+            ${Greeting(state.get('user').get('name'))}
             <section>
                 <h3>Put things on the page!</h3>
                 <p>Here is an example section.</p>
@@ -40,7 +38,7 @@ const App = (state) => {
                     explanation are returned. These keywords could be used as auto-generated hashtags for twitter or instagram feeds;
                     but generally help with discoverability of relevant imagery.
                 </p>
-                ${ImageOfTheDay(apod)}
+                ${ImageOfTheDay(state, state.get('apod'))}
             </section>
         </main>
         <footer></footer>
@@ -68,8 +66,7 @@ const Greeting = (name) => {
 }
 
 // Example of a pure function that renders infomation requested from the backend
-const ImageOfTheDay = (apod) => {
-
+const ImageOfTheDay = (state,apod) => {
     // If image does not already exist, or it is not from today -- request it again
     const today = new Date()
     const photodate = new Date(apod.date)
@@ -77,7 +74,7 @@ const ImageOfTheDay = (apod) => {
 
     console.log(photodate.getDate() === today.getDate());
     if (!apod || apod.date === today.getDate() ) {
-        getImageOfTheDay(store)
+        getImageOfTheDay(state)
     }
 
     // check if the photo of the day is actually type video!
@@ -97,13 +94,10 @@ const ImageOfTheDay = (apod) => {
 
 // ------------------------------------------------------  API CALLS
 
-// Example API call
+// API Call to get the image of the day
 const getImageOfTheDay = (state) => {
-    let { apod } = state
-
     fetch(`http://localhost:3000/apod`)
-        .then(res => res.json())
-        .then(apod => updateStore(store, { apod }))
-
-    return data
-}
+      .then(res => res.json())
+      .then(apod => updateStore(state, { apod }))
+      .catch(err => console.error('getImageOfTheDay: Oops, Something went wrong', err));
+};
