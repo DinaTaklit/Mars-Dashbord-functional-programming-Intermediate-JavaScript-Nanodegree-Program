@@ -90,5 +90,23 @@ const getImageOfTheDay = (state) => {
     fetch(`http://localhost:3000/apod`)
       .then(res => res.json())
       .then(apod => updateStore(state, { apod }))
-      .catch(err => console.error('getImageOfTheDay: Oops, Something went wrong', err));
+      .catch(err => console.error('getImageOfTheDay: Oops, Something went wrong!', err));
 };
+
+// API Call to get rover Data (info + most recent taken images)
+const getRoverData= (state, roverName) => {
+    fetch(`http://localhost:3000/rovers/${roverName}`)
+        .then(res => res.json())
+        .then(photos => {
+            updateStore(state, {
+                currentRover: roverName,
+                roversData: {
+                    [roverName]: {
+                        photos: photos,
+                        roverDetails: photos[0].rover,
+                    },
+                },
+            });
+        })
+        .catch(err => console.error('getRoverData: Oops, Something went wrong!', err));
+}
