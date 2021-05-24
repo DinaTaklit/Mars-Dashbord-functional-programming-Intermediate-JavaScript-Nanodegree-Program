@@ -34,10 +34,9 @@ window.addEventListener('load', () => {
 // ------------------------------------------------------  COMPONENTS
 const welcome = (state) => {
     return `
-        <header></header>
-        <main>
+        <section class="welcome">
             ${Greeting(state.get('user').get('name'))}
-            <section>
+            <div>
                 <p>
                     One of the most popular websites at NASA is the Astronomy Picture of the Day. In fact, this website is one of
                     the most popular websites across all federal agencies. It has the popular appeal of a Justin Bieber video.
@@ -47,15 +46,16 @@ const welcome = (state) => {
                     but generally help with discoverability of relevant imagery.
                 </p>
                 ${ImageOfTheDay(state)}
-            </section>
-        </main>
-        <footer></footer>
+            </div>
+        </section>
     `
 }
 
 // Pure function for greeting 
 const Greeting = (name) => {
-    return name ? `<h1>Welcome, ${name}!</h1>`: `<h1>Hello!</h1>`
+    return name ? `<h1>JS Functional Programming With NASA API</h1> 
+                   <h2> Welcome, ${name}!</h2>`
+                : `<h1>Hello!</h1>`
 }
 
 // Example of a pure function that renders infomation requested from the backend to get the image of the date
