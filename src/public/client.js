@@ -10,9 +10,10 @@ let store = Immutable.Map({
 // add our markup to the page
 const root = document.getElementById('root')
 
+// Update the store using Immutable.js mergeDeep
 const updateStore = (store, newState) => {
-    store = Object.assign(store, newState)
-    render(root, store)
+    const updatedStore = store.mergeDeep(newState);
+    render(root, updatedStore);
 }
 
 const render = async (root, state) => {
