@@ -28,10 +28,31 @@ const App = (state) => {
 
 // listening for load event because page should load before any JS is called
 window.addEventListener('load', () => {
+    header(store) // Add the header in the first render
     render(root, store)
 })
 
 // ------------------------------------------------------  COMPONENTS
+// Funtion that create header element
+const header = (state) => {
+    const headerElement = document.querySelector('header')
+    const headerString = `
+        <div class="logo">
+            <img src="./assets/images/nasa.png"/>
+        </div>
+        <nav>
+            <ul>
+                ${
+                    state.get("rovers")
+                    .map((item) => `<li>${item}</li>`)
+                    .reduce((content, roverItem) => content += roverItem)
+                }
+            </ul>
+        </nav>
+    `
+    headerElement.innerHTML = headerString;
+}
+
 const welcome = (state) => {
     return `
         <section class="welcome">
