@@ -2,6 +2,8 @@ body {
   font-family: Arial;
   min-height: 100vh;
   color: #343a40;
+  width: 80%;
+  margin: auto;
 }
 
 header {
@@ -9,10 +11,38 @@ header {
 }
 
 main {
-  width: 80%;
-  margin: auto;
   padding: 2rem;
 }
+
+/*------------------ Header Section ------------------*/
+
+header{
+  background:#1E262D;
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+header .logo img{
+  width:80px;
+  height: 60px;
+  cursor: pointer;
+}
+
+header ul {
+  display: flex;
+  color: rgba(256, 256, 256, 0.7)
+}
+header ul li{
+  margin-right: 1rem;
+  cursor: pointer;
+}
+header ul li.active,
+header ul li:hover{
+  color: rgba(256, 256, 256, 0.95)
+}
+
 
 /*------------------ Welcome Section ------------------*/
 .welcome{
@@ -49,9 +79,8 @@ footer {
 }
 /* -------------------  MOBILE  --------------------- */
 @media(max-width: 768px){
-  main {
+  body {
     width: 100%;
-    /* padding: 2rem 1rem; */
   }
 }
 
