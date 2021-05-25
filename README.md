@@ -1,4 +1,6 @@
-# Functional Programming with Javascript 
+# Functional Programming with Javascript
+
+> Note: in this project I am using npm instead of yarn so intall dependencies with `npm install`and run the project with `npm start`
 
 ## Student Instructions
 
