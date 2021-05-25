@@ -1,5 +1,9 @@
 # Functional Programming with Javascript
 
+## Quick Overview of the project
+
+![Functional Programming with Javascript using NASA API](./functionJsWithNasaAPI.gif)
+
 > Note: in this project I am using npm instead of yarn so intall dependencies with `npm install`and run the project with `npm start`
 
 ## Student Instructions
