@@ -94,7 +94,16 @@ header ul li:hover{
 
 /*----------------------- Footer  --------------------*/
 footer {
-  /* footer styles */
+  background:#1E262D;
+  padding: 1rem 2rem;
+  color: rgba(256, 256, 256, 0.7);
+  text-align: center;
+}
+footer a{
+  color: rgba(256, 256, 256, 0.8);
+}
+footer a:hover{
+  color: rgba(256, 256, 256, 0.9);
 }
 
 /* -------------------  LARGE SCREENS  -------------- */
