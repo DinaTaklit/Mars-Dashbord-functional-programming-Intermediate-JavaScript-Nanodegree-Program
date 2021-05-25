@@ -24,7 +24,7 @@ const render = async (root, state) => {
 // create content
 const App = (state) => {
     const selectedItem = state.get('selectedItem')
-    return (selectedItem === "logo" || selectedItem === '') ? welcome(state) : "roverDom(state)"
+    return (selectedItem === "logo" || selectedItem === '') ? welcome(state) : roverDom(state)
 }
 
 // ------------------------------------------------------  Event Listner, handler
@@ -112,6 +112,41 @@ const ImageOfTheDay = (state) => {
             <p>${apod.image.explanation}</p>
         `)
     }
+}
+
+//-------------------- Functions for The rovers Sections
+// Create the rover info and photos dom 
+const roverDom = (state) => {
+    // Get the selected rover name
+    const roverName = state.get('selectedItem')
+    // if the roverData does not existe in the sotre we fetch them
+    if (!state.get("roversData").get(roverName)){
+        getRoverData(state, roverName)
+    }
+
+    // get the rover photos
+    const roverPhotos = state.get("roversData").get(roverName).photos;
+    // get rover details
+    const roverDetails = state.get("roversData").get(roverName).roverDetails;
+    const { name, landing_date, launch_date, status } = roverDetails;
+
+    return `
+        <section class="rover">
+            <div class="rover-info">
+                <p><span>Rover name:</span> ${name}</p>
+                <p><span>Landing Date:</span> ${landing_date}</p>
+                <p><span>Launch date:</span> ${launch_date}</p>
+                <p><span>Status:</span> ${status}</p>
+            </div>
+            <div class="rover-photos-grid">
+                ${
+                    roverPhotos.reduce((htmlString, singlePhoto) => {
+                        return htmlString += `<img src="${singlePhoto.img_src}">`;
+                    }, '')
+                }
+            </div>
+        </section>
+    `
 }
 
 // ------------------------------------------------------  API CALLS
