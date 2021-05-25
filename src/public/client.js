@@ -2,7 +2,7 @@
 let store = Immutable.Map({
     user: Immutable.Map({ name: "Dina" }),
     apod: '',
-    currentRover: '', // represent the current selcted rover
+    selectedItem: '', // to track the selected Item
     rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']), // List of the rovers Name
     roversData: Immutable.Map() // Rovers Data: Information + most recent taken images
 })
@@ -12,8 +12,8 @@ const root = document.getElementById('root')
 
 // Update the store using Immutable.js mergeDeep
 const updateStore = (store, newState) => {
-    const updatedStore = store.mergeDeep(newState);
-    render(root, updatedStore);
+    store = store.mergeDeep(newState);
+    render(root, store);
 }
 
 const render = async (root, state) => {
@@ -23,8 +23,11 @@ const render = async (root, state) => {
 
 // create content
 const App = (state) => {
-    return welcome(state)
+    const selectedItem = state.get('selectedItem')
+    return (selectedItem === "logo" || selectedItem === '') ? welcome(state) : "roverDom(state)"
 }
+
+// ------------------------------------------------------  Event Listner, handler
 
 // listening for load event because page should load before any JS is called
 window.addEventListener('load', () => {
@@ -32,20 +35,26 @@ window.addEventListener('load', () => {
     render(root, store)
 })
 
+// Handle the cliked nav Item 
+const handleClickedNavItem = (item) => {
+    updateStore(store, {selectedItem: item})
+}
 // ------------------------------------------------------  COMPONENTS
+// ------------------ Functions for Header
 // Funtion that create header element
 const header = (state) => {
     const headerElement = document.querySelector('header')
     const headerString = `
-        <div class="logo">
+        <div class="logo" onClick=handleClickedNavItem("logo")>
             <img src="./assets/images/nasa.png"/>
         </div>
         <nav>
             <ul>
                 ${
                     state.get("rovers")
-                    .map((item) => `<li>${item}</li>`)
-                    .reduce((content, roverItem) => content += roverItem)
+                        .map((item) => `<li onClick=handleClickedNavItem("${item}")>
+                            ${item}</li>`)
+                        .reduce((content, roverItem) => content += roverItem)
                 }
             </ul>
         </nav>
@@ -53,6 +62,7 @@ const header = (state) => {
     headerElement.innerHTML = headerString;
 }
 
+// --------------- Functions for the Welcome Section
 const welcome = (state) => {
     return `
         <section class="welcome">
