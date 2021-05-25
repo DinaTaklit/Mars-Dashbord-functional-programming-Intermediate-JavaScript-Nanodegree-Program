@@ -43,7 +43,6 @@ header ul li:hover{
   color: rgba(256, 256, 256, 0.95)
 }
 
-
 /*------------------ Welcome Section ------------------*/
 .welcome{
   display: flex;
@@ -73,30 +72,69 @@ header ul li:hover{
   border-radius: 5%;
 }
 
+/*------------------ Rover Section ------------------*/
+.rover .rover-info{
+  margin-bottom: 1rem;
+}
+.rover .rover-info span{
+  color: #fb8500;
+  font-weight: 600;
+}
+
+.rover .rover-photos-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem 1.3rem ;
+}
+.rover .rover-photos-grid img{
+  width: 100%;
+  box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+  border-top: 3px solid #219ebc;
+}
+
 /*----------------------- Footer  --------------------*/
 footer {
   /* footer styles */
-}
-/* -------------------  MOBILE  --------------------- */
-@media(max-width: 768px){
-  body {
-    width: 100%;
-  }
-}
-
-/* -------------------  TABLET  --------------------- */
-@media (min-width: 768px) {
-  /* use mobile */
-}
-
-/* -------------------  DESKTOP  -------------------- */
-
-@media (min-width: 1224px) {
-  /* use mobile */
 }
 
 /* -------------------  LARGE SCREENS  -------------- */
 
 @media (min-width: 1824px) {
-  /* use mobile */
+  .rover .rover-photos-grid{
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* -------------------  DESKTOP  -------------------- */
+
+@media (min-width: 1224px) {
+  .rover .rover-photos-grid{
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+
+/* -------------------  TABLET  --------------------- */
+@media (max-width: 992px) {
+  .rover .rover-photos-grid{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+
+/* -------------------  MOBILE  --------------------- */
+@media(max-width: 768px){
+  body {
+    width: 100%;
+  }
+  .rover .rover-photos-grid{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.3rem ;
+  }
+}
+@media(max-width: 480px){
+  .rover .rover-photos-grid{
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
